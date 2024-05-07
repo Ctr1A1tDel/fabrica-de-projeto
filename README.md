@@ -8,3 +8,4 @@ https://www.youtube.com/watch?v=olDCJ1w3FLM
 https://www.youtube.com/watch?v=vPMHgiN6row
 https://dadosabertos.bcb.gov.br/
 https://www.youtube.com/watch?v=GGkUt4hy0T8
+https://brapi.dev/
