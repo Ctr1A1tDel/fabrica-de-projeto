@@ -1,13 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 try:
-
-  loop = 'sim'
-  while(loop == 'sim' or loop == 's'):
-
-    banco_s = input('banco: ')
-    banco = banco_s.lower()
-
+  def site(banco):
 
     if banco == 'banco do brasil':
        banco = 'bb'
@@ -45,7 +39,15 @@ try:
          arquivo.write(f'\nPUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
          arquivo.write(f'\nNÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
 
-    loop = input('\nmais alguma coisa? ')
+  loop = 'sim'
+  while True:
+    if loop == 'sim' or loop == 's':
+      banco = input('banco: ').lower()
+      site(banco)
+      loop = input('\nmais alguma coisa? ')
+    else:
+      break
+      
   else:
     print('obrigado por usar')
 
