@@ -1,5 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
+from pprint import pprint
+pprint = print
+print = pprint
+
 try:
   def site(banco):
 
@@ -28,17 +32,19 @@ try:
 
     for index, value in enumerate(dd):
       dd[index] = dd[index].replace("\n", "")
-
+    print('----------------------------\n')
     print(f'PUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
     print(f'NÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
+    print('----------------------------\n')
 
     txt = input('Deseja extrair esses dados informados em arquivo txt? ')
     if txt == 'sim' or txt == 's':
       with open(f'banco_{banco}.txt','w') as arquivo:
-         arquivo.write(f'o banco {banco}')
+         arquivo.write(f'o banco {banco}\n-----------------')
          arquivo.write(f'\nPUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
          arquivo.write(f'\nNÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
-
+ # def api(x):
+    
   loop = 'sim'
   while True:
     if loop == 'sim' or loop == 's':
@@ -53,3 +59,4 @@ try:
 
 except IndexError:
   print('digite o nome certo')
+  
