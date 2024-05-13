@@ -1,33 +1,30 @@
 from bs4 import BeautifulSoup
-import requests
+import requests, json
 from pprint import pprint
 pprint = print
 print = pprint
+url = {
+    'banco do brasil': 'https://bancodata.com.br/relatorio/bb/',
+    'easynvest': 'https://bancodata.com.br/relatorio/easynvest-titulo-cv-sa/',
+    'intermedium': 'https://bancodata.com.br/relatorio/intermedium/',
+    'paypal': 'https://www.bancodata.com.br/relatorio/10878448/',
+    'will bank': 'https://bancodata.com.br/relatorio/willbank/'
+}
 
 try:
   def site(banco):
 
-    if banco == 'banco do brasil':
-       banco = 'bb'
+    if banco in url:
+        url_banco = url[banco]
+    else:
+        url_banco = f"https://www.bancodata.com.br/relatorio/{banco}/"
 
-    elif banco == 'easynvest':
-      banco = 'easynvest-titulo-cv-sa'
-
-    elif banco == 'inter':
-      banco = 'intermedium'
-
-
-    pagina = requests.get(f'https://bancodata.com.br/relatorio/{banco}/')
+    pagina = requests.get(url_banco)
     site = BeautifulSoup(pagina.content, 'html.parser')
     publicacao = site.find_all('div', attrs={'class': 'main-info'})
     dd = [i.find('strong').text for i in publicacao]
 
-    if banco == 'easynvest-titulo-cv-sa':
-      banco = 'easynvest'
-    elif banco == 'intermedium':
-      banco = 'inter'
-    elif banco == 'wilbank':
-      banco = 'will bank'
+
 
 
     for index, value in enumerate(dd):
@@ -43,13 +40,16 @@ try:
          arquivo.write(f'o banco {banco}\n-----------------')
          arquivo.write(f'\nPUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
          arquivo.write(f'\nNÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
- # def api(x):
-    
+  def monitoria(banco):
+     ou = requests.get('https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/versao/v1/odata/Ouvidorias?$top=1000&$skip=0&$format=json&$select=Nome,WebSite,Telefone').json()
+
   loop = 'sim'
   while True:
     if loop == 'sim' or loop == 's':
       banco = input('banco: ').lower()
+      
       site(banco)
+
       loop = input('\nmais alguma coisa? ')
     else:
       break
