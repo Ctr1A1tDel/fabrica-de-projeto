@@ -19,3 +19,4 @@ https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/versao/v1/aplicacao
 https://brapi.dev/
 https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/aplicacao#!/recursos
 https://olinda.bcb.gov.br/olinda/servico/IFDATA/versao/v1/aplicacao#!/recursos
+https://rapidapi.com/hub
