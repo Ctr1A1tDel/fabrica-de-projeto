@@ -1,15 +1,10 @@
 from bs4 import BeautifulSoup
 import requests, json
 from pprint import pprint
+from dados import url
 pprint = print
 print = pprint
-url = {
-    'banco do brasil': 'https://bancodata.com.br/relatorio/bb/',
-    'easynvest': 'https://bancodata.com.br/relatorio/easynvest-titulo-cv-sa/',
-    'intermedium': 'https://bancodata.com.br/relatorio/intermedium/',
-    'paypal': 'https://www.bancodata.com.br/relatorio/10878448/',
-    'will bank': 'https://bancodata.com.br/relatorio/willbank/'
-}
+
 
 try:
   def site(banco):
@@ -23,9 +18,6 @@ try:
     site = BeautifulSoup(pagina.content, 'html.parser')
     publicacao = site.find_all('div', attrs={'class': 'main-info'})
     dd = [i.find('strong').text for i in publicacao]
-
-
-
 
     for index, value in enumerate(dd):
       dd[index] = dd[index].replace("\n", "")

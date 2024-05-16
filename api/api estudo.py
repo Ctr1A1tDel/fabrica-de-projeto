@@ -3,6 +3,7 @@ from time import localtime, strftime
 from pprint import pprint
 print == pprint
 pprint == print
+from key_Alpha import chave
 
 #cotacoes = requests.get('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL')
 #cotacoes = cotacoes.json()
@@ -30,4 +31,15 @@ ou = requests.get('https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/
 #        print('bu')
 #        break
 
-data = strftime("%Y%m", localtime())
+#data = strftime("%Y%m", localtime())
+
+
+# replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=IBM&apikey={chave}'
+
+r = requests.get(url)
+data = r.json()
+
+print(data)
+
+
