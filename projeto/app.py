@@ -1,5 +1,5 @@
 import flet as ft
-import requests
+import requests,json,yfinance
 from bs4 import BeautifulSoup
 
 def main(page):
