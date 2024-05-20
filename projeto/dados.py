@@ -1,8 +1,23 @@
-from bs4 import BeautifulSoup
-import requests, json
-from pprint import pprint
-print = pprint
-pprint = print
+nome_na_bolsa={
+    'inter':	'INBR32',
+    'stone':	'STOC31',
+    'nubank':	'ROXO34.SA',
+    'xp':	'XPBR31',
+    'brb':	'BSLI3',
+    'morgan dtanley':'MSBR34',
+    'jpmorgan':	'JPMC34',
+    'goldman sachs':'GSGI34',
+    'sao carlos empreend':'SCAR3F''SCAR3',
+    'bmg':'BMGB4',
+    'porto seguro':'PSSA3',
+    'banrisul':'BRSR6',
+    'santander br':	'SANB34',
+    'itau':	'ITUB4.SA',
+    'banco mercantil de investimentos':'BMIN3',
+    'mercantil do brasil financeira	':'MERC4',
+    'banco pan':'BPAN4.SA',
+    'banco do brasil':'	BBAS3F	BBAS3	BBAS12	BBAS11',
+}
 
 url = {
     'banco do brasil': 'https://bancodata.com.br/relatorio/bb/',
@@ -10,36 +25,10 @@ url = {
     'intermedium': 'https://bancodata.com.br/relatorio/intermedium/',
     'paypal': 'https://www.bancodata.com.br/relatorio/10878448/',
     'will bank': 'https://bancodata.com.br/relatorio/willbank/',
-    'xp inc' : 'https://bancodata.com.br/relatorio/xp-investimentos-cctvm-sa/'
+    'xp' : 'https://bancodata.com.br/relatorio/xp-investimentos-cctvm-sa/',
+    'inter' : 'https://bancodata.com.br/relatorio/416968/',
+    'JPMorgan' :  'https://bancodata.com.br/relatorio/46518205/',
+    'Sao Carlos Empreend': 'https://bancodata.com.br/relatorio/ccm-pemm-sao-carlos/',
+    'banco mercantil de investimentos' : 'https://bancodata.com.br/relatorio/34169557/',
+    'banco pan':'https://bancodata.com.br/relatorio/pan/'
 }
-
-def excluir(z):
-    for index, value in enumerate(z):
-        z[index] = z[index].replace("\n", "")
-
-Bruto_site_nomes = requests.get('https://www.infomoney.com.br/cotacoes/empresas-b3/')
-site_nomes = BeautifulSoup(Bruto_site_nomes.content,'html.parser')
-banco_nome = site_nomes.find_all('td',{'class': 'higher'})
-nome = [banco_nome[i].text for i in range(len(banco_nome))]
-
-x = requests.get('https://www.infomoney.com.br/cotacoes/empresas-b3/')
-y = BeautifulSoup(x.content,'html.parser')
-u = y.find_all('td',{'class':'strong'})
-v = [u[i].text.lower() for i in range(len(u))]
-
-excluir(nome)
-excluir(v)
-
-nomes_bolsa = {}
-for i,j in zip(nome, v):
-    nomes_bolsa[i] = j
-
-def saida(banco,dd):
-    forma = input('Deseja extrair esse arquivo? Se sim, qual dessas formatação:\ntxt,')
-    if forma == 'txt':
-      with open(f'banco_{banco}.txt','w') as arquivo:
-         arquivo.write(f'o banco {banco}\n------------------------------------------------------------------------')
-         arquivo.write(f'\nPUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
-         arquivo.write(f'\nNÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
-         arquivo.write('------------------------------------------------------------------------')
-print(nomes_bolsa)

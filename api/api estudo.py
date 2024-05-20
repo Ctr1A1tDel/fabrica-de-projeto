@@ -35,11 +35,11 @@ ou = requests.get('https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/
 
 
 # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
-url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=IBM&apikey={chave}'
+url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=ROXO34.SA&apikey={chave}'
 
 r = requests.get(url)
 data = r.json()
 
-print(data)
+pprint(data['Weekly Adjusted Time Series'][0]['2021-12-17'])
 
 

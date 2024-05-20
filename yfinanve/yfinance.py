@@ -1,5 +1,4 @@
 import yfinance as yf
 
-petro  = yf.Ticker('PETR4.SA')
+petro  = yf.ticker('PETR4.SA')
 
-petro.
