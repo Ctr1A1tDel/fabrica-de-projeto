@@ -1,6 +1,7 @@
 import requests, json
-from time import localtime, strftime
+from time import localtime, time
 from pprint import pprint
+import pandas_datareader as pdr
 print == pprint
 pprint == print
 from key_Alpha import chave
@@ -35,11 +36,18 @@ ou = requests.get('https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/
 
 
 # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
-url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=ROXO34.SA&apikey={chave}'
+#url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=ROXO34.SA&apikey={chave}'
+#url = 'https://www.alphavantage.co/query?function=WTI&interval=monthly&apikey=demo'
 
-r = requests.get(url)
-data = r.json()
+#r = requests.get(url)
+#data = r.json()
 
-pprint(data['Weekly Adjusted Time Series'][0]['2021-12-17'])
+#$pprint(data['Weekly Adjusted Time Series']['2024-05-20'])
 
 
+#pprint(data)
+
+data_inical = '2024-04-1'
+data_final = str(localtime())
+tabela_cotacao =pdr.get_data_yahoo('BBAS3.SA',data_inical,data_final)
+display(tabela_cotacao)

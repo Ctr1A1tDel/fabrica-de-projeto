@@ -1,7 +1,7 @@
 nome_na_bolsa={
     'inter':	'INBR32',
     'stone':	'STOC31',
-    'nubank':	'ROXO34.SA',
+    'nubank':	'ROXO34',
     'xp':	'XPBR31',
     'brb':	'BSLI3',
     'morgan dtanley':'MSBR34',
@@ -12,11 +12,11 @@ nome_na_bolsa={
     'porto seguro':'PSSA3',
     'banrisul':'BRSR6',
     'santander br':	'SANB34',
-    'itau':	'ITUB4.SA',
+    'itau':	'ITUB4',
     'banco mercantil de investimentos':'BMIN3',
     'mercantil do brasil financeira	':'MERC4',
-    'banco pan':'BPAN4.SA',
-    'banco do brasil':'	BBAS3F	BBAS3	BBAS12	BBAS11',
+    'banco pan':'BPAN4',
+    'banco do brasil':'	BBAS3',
 }
 
 url = {

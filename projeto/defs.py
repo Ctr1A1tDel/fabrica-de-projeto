@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests, json
 from dados import url,nome_na_bolsa
 import yfinance 
+from time import localtime, strftime
 
 
 def excluir(z):
@@ -39,9 +40,8 @@ def investimentos(banco):
   
   if banco in nome_na_bolsa:
     bolsa = nome_na_bolsa[banco]
-    tiket = yfinance.ticker(str(bolsa))
+    tiket = yfinance.Ticker(f'{banco}.SA')
     print(tiket)
   else:
     print('n achei')
     
-print(investimentos('nubank'))
