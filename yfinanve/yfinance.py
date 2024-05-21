@@ -1,4 +1,5 @@
 import yfinance as yf
 
-petro  = yf.ticker('PETR4.SA')
+petro  = yf.Ticker('PETR4.SA').history(period='36mo')
 
+print(petro)

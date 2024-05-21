@@ -47,7 +47,7 @@ ou = requests.get('https://olinda.bcb.gov.br/olinda/servico/Informes_Ouvidorias/
 
 #pprint(data)
 
-data_inical = '2024-04-1'
-data_final = str(localtime())
-tabela_cotacao =pdr.get_data_yahoo('BBAS3.SA',data_inical,data_final)
-display(tabela_cotacao)
+#data_inical = '2024-04-01'
+#data_final = str(localtime())
+#tabela_cotacao =pdr.get_data_yahoo('BBAS3.SA',data_inical,data_final)
+#display(tabela_cotacao)
