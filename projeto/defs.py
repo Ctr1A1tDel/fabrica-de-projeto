@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests, json
-from dados import url,nome_na_bolsa
+from dados import url,nome_na_bolsa,chave_brapi
 import yfinance 
 from time import localtime, strftime
 
@@ -22,9 +22,8 @@ def saida(banco,dd):
 def site(banco):
   if banco in url:
       url_banco = url[banco]
-  else:
-      
-      url_banco = f"https://www.bancodata.com.br/relatorio/{banco}/"
+  else:     
+    url_banco = f"https://www.bancodata.com.br/relatorio/{banco}/"
   pagina = requests.get(url_banco)
   site = BeautifulSoup(pagina.content, 'html.parser')
   publicacao = site.find_all('div', attrs={'class': 'main-info'})
@@ -34,14 +33,23 @@ def site(banco):
   print(f'PUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
   print(f'NÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
   print('----------------------------\n')
-  saida(banco,dd)
+
+
 
 def investimentos(banco):
-  
-  if banco in nome_na_bolsa:
-    bolsa = nome_na_bolsa[banco]
-    tiket = yfinance.Ticker(f'{banco}.SA')
-    print(tiket)
-  else:
-    print('n achei')
-    
+      bolsa = nome_na_bolsa[banco].lower()
+      api = f'https://brapi.dev/api/quote/{bolsa}?range=5d&interval=1d&modules=summaryProfile&token={chave_brapi}'
+      dados = requests.get(api).json()
+      print("nome: ", dados['results'][0]['longName'])
+      print("preço: R$ ", dados['results'][0]['regularMarketPrice'])
+      print("o maior preço do dia: R$", dados['results'][0]['regularMarketDayHigh'])
+      print("o menor valor do dia: R$", dados['results'][0]['regularMarketDayLow'])
+      print("numero total de ações: ", dados['results'][0]['regularMarketVolume'])
+      print("símbolo: ", dados['results'][0]['symbol'])
+      print('endereço: ',dados['results'][0]['summaryProfile']['address1'],';',dados['results'][0]['summaryProfile']['address2'])
+      print(f"Localizado: {dados['results'][0]['summaryProfile']['city']}, {dados['results'][0]['summaryProfile']['state']}, {dados['results'][0]['summaryProfile']['country']}")
+      if banco == 'b3':
+          print('telefone: 4200 0277')
+      else:
+          print('telefone: ',dados['results'][0]['summaryProfile']['phone'])
+      print('site: ',dados['results'][0]['summaryProfile']['website'])

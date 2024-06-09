@@ -9,7 +9,7 @@ try:
   loop = 'sim'
   while True:
     if loop == 'sim' or loop == 's':
-      banco = input('banco: ').lower().replace(' ','-')
+      banco = input('banco: ').lower()
       
       site(banco)
       investimentos(banco)
