@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
-import requests, json
+import requests, json, textwrap
 from dados import url,nome_na_bolsa,chave_brapi
 import yfinance 
 from time import localtime, strftime
+from deep_translator import GoogleTranslator
+
 
 
 def excluir(z):
@@ -32,7 +34,7 @@ def site(banco):
   print('----------------------------\n')
   print(f'PUBLICAÇÃO: {dd[0]} \nLUCRO LÍQUIDO (R$): {dd[1]} \nPATRIMÔNIO LÍQUIDO (R$): {dd[2]} \nATIVO TOTAL (R$): {dd[3]} \nCAPTAÇÕES (R$): {dd[4]} \nCARTEIRA DE CRÉDITO CLASSIFICADA (R$): {dd[5]} \nPATRIMÔNIO DE REFERÊNCIA RWA (R$): {dd[6]}')
   print(f'NÚMERO DE AGÊNCIAS: {dd[7]} \nNÚMERO DE PONTOS DE ATENDIMENTO: {dd[8]}')
-  print('----------------------------\n')
+  
 
 
 
@@ -40,11 +42,12 @@ def investimentos(banco):
       bolsa = nome_na_bolsa[banco].lower()
       api = f'https://brapi.dev/api/quote/{bolsa}?range=5d&interval=1d&modules=summaryProfile&token={chave_brapi}'
       dados = requests.get(api).json()
-      print("nome: ", dados['results'][0]['longName'])
       print("preço: R$ ", dados['results'][0]['regularMarketPrice'])
       print("o maior preço do dia: R$", dados['results'][0]['regularMarketDayHigh'])
       print("o menor valor do dia: R$", dados['results'][0]['regularMarketDayLow'])
       print("numero total de ações: ", dados['results'][0]['regularMarketVolume'])
+      print('----------------------------\n')
+      print("nome: ", dados['results'][0]['longName'])
       print("símbolo: ", dados['results'][0]['symbol'])
       print('endereço: ',dados['results'][0]['summaryProfile']['address1'],';',dados['results'][0]['summaryProfile']['address2'])
       print(f"Localizado: {dados['results'][0]['summaryProfile']['city']}, {dados['results'][0]['summaryProfile']['state']}, {dados['results'][0]['summaryProfile']['country']}")
@@ -53,3 +56,10 @@ def investimentos(banco):
       else:
           print('telefone: ',dados['results'][0]['summaryProfile']['phone'])
       print('site: ',dados['results'][0]['summaryProfile']['website'])
+
+      tradutor = GoogleTranslator(source= "en", target= "pt")
+      texto = dados['results'][0]['summaryProfile']['longBusinessSummary']
+      traducao = tradutor.translate(texto)
+      texto = textwrap.fill(traducao, width=80)
+      print('--------------HISTORIA-------------\n')
+      print(texto)
